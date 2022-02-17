@@ -1,11 +1,9 @@
 package View;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.util.Locale;
+import java.awt.event.*;
 
-public class Screen {
+public class Screen implements ActionListener{
     private JFrame tela = new JFrame();
     private JButton addProd, closeJframe;
     private ProductScreen prdScreen = new ProductScreen();
@@ -26,17 +24,23 @@ public class Screen {
         closeJframe.addActionListener(e ->{
             tela.dispose();
         });
-        addProd.addActionListener(e -> {
-            tela.setVisible(false);
-            prdScreen.AddScreenAddProduto();
-            tela.setVisible(true);
-        });
 
+        addProd.addActionListener(this);
         tela.setLocationRelativeTo(null);
         tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tela.setVisible(true);
 
     }
 
+    public void actionPerformed(ActionEvent e) {
+        if( e.getSource() ==  addProd) {
+            addButton();
+        }
+    }
+
+    public void addButton(){
+        tela.dispose();
+        prdScreen.AddScreenAddProduto(tela);
+    }
 
 }
